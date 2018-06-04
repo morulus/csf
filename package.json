@@ -1,6 +1,6 @@
 {
   "name": "sequencex",
-  "version": "1.0.0-beta",
+  "version": "0.1.0",
   "description": "Communicating sequential asynchronous operations manager",
   "main": "lib/index.js",
   "scripts": {
