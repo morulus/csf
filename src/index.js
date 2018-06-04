@@ -16,6 +16,7 @@ import defaultContext from "./effects/default-context";
 import assignContext from "./effects/assign-context";
 import createChildContext from "./effects/create-child-context";
 import cancel from "./effects/cancel";
+import map from "./effects/map";
 
 function SequenceX(task) {
   const internalPromise = new Promise(function (resolve) {
@@ -71,7 +72,9 @@ const fx = {
 
   createChildContext,
 
-  cancel
+  cancel,
+
+  map
 };
 
 SequenceX.fx = fx;
