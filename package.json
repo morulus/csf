@@ -1,0 +1,53 @@
+{
+  "name": "sequencex",
+  "version": "1.0.0-beta",
+  "description": "Communicating sequential asynchronous operations manager",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "babel src -d lib",
+    "prepublishOnly": "npm run lint && npm run build && npm run test",
+    "lint": "eslint ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morulus/sequencex.git"
+  },
+  "keywords": [
+    "sequence",
+    "control",
+    "csp",
+    "saga",
+    "generator",
+    "runner",
+    "flow"
+  ],
+  "author": "Vladimir Kalmykov <vladimirmorulus@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/morulus/sequencex/issues"
+  },
+  "homepage": "https://github.com/morulus/sequencex#readme",
+  "dependencies": {
+    "is-error": "^2.2.1",
+    "is-function": "^1.0.1",
+    "is-generator": "^1.0.3",
+    "is-object": "^1.0.1",
+    "is-object-like": "^1.0.1",
+    "is-promise": "^2.1.0",
+    "lodash.defaults": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.23.0",
+    "babel-jest": "^17.0.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^5.1.6",
+    "eslint": "^4.19.1",
+    "jest": "^18.0.0",
+    "jest-cli": "^18.0.0"
+  },
+  "jest": {
+    "verbose": true
+  }
+}
