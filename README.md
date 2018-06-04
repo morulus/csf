@@ -19,7 +19,7 @@ If you'd like to contribute project, please contact me, contact me or make pull 
 Docs
 --
 
-- [API reference](./docs/api.md)
+- [API reference](https://github.com/morulus/sequencex/blob/master/docs/api.md)
 
 Principle and inspiration
 --
