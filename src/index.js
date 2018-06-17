@@ -18,7 +18,7 @@ import createChildContext from "./effects/create-child-context";
 import cancel from "./effects/cancel";
 import map from "./effects/map";
 
-function SequenceX(task) {
+function Sequence(task) {
   const internalPromise = new Promise(function (resolve) {
     resolve(apply(task, this));
   });
@@ -31,14 +31,14 @@ function SequenceX(task) {
   });
 }
 
-SequenceX.prototype = Object.create(Promise.prototype);
-SequenceX.prototype.constructor = Promise;
+Sequence.prototype = Object.create(Promise.prototype);
+Sequence.prototype.constructor = Promise;
 
-SequenceX.prototype.then = function(handler) {
+Sequence.prototype.then = function(handler) {
   return this.promise.then(handler);
 };
 
-SequenceX.prototype.catch = function(handler) {
+Sequence.prototype.catch = function(handler) {
   return this.promise.catch(handler);
 };
 
@@ -77,10 +77,10 @@ const fx = {
   map
 };
 
-SequenceX.fx = fx;
+Sequence.fx = fx;
 
 /* Extend main module with api */
-Object.assign(SequenceX, {
+Object.assign(Sequence, {
   run,
   apply,
   create,
@@ -89,4 +89,4 @@ Object.assign(SequenceX, {
   fx
 });
 
-export default SequenceX;
+export default Sequence;

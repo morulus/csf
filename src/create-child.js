@@ -1,10 +1,11 @@
-const run = require("./run");
-const resolveContext = require("./resolve-context");
+import run from "./run";
+import resolveContext from "./resolve-context";
+import resolveArgs from "./resolve-args";
 
 /* Create fyped function with prototypically inherit context */
 export default function createChild(
   task,
-  initialChildContext,
+  contextProperties,
   ownArgs
 ) {
   return function withBoundedChildContext(...args) {
@@ -18,12 +19,12 @@ export default function createChild(
        * object, not null as other cases does
        */
       this || {},
-      [ initialChildContext ]
+      [ contextProperties ]
     ));
 
     return Reflect.apply(run, childContext, [
       task,
-      ownArgs || args
+      resolveArgs(ownArgs, args)
     ]);
   };
 }
