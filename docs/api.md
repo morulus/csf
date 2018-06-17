@@ -23,7 +23,6 @@ General
 Fx
 --
 
-
 ```js
 import { fx } from 'sequencex'
 ```

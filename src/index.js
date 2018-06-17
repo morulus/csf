@@ -16,6 +16,7 @@ import defaultContext from "./effects/default-context";
 import assignContext from "./effects/assign-context";
 import createChildContext from "./effects/create-child-context";
 import cancel from "./effects/cancel";
+import reduce from "./effects/reduce";
 import map from "./effects/map";
 
 function Sequence(task) {
@@ -74,7 +75,9 @@ const fx = {
 
   cancel,
 
-  map
+  map,
+
+  reduce
 };
 
 Sequence.fx = fx;

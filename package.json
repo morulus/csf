@@ -1,6 +1,6 @@
 {
   "name": "sequencex",
-  "version": "0.1.4",
+  "version": "0.1.5-beta.0",
   "description": "Communicating sequential asynchronous operations manager",
   "main": "lib/index.js",
   "scripts": {
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/morulus/sequencex#readme",
   "dependencies": {
+    "is-array": "^1.0.1",
     "is-error": "^2.2.1",
     "is-function": "^1.0.1",
     "is-generator": "^1.0.3",

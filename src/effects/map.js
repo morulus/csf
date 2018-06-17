@@ -15,22 +15,39 @@
  * @param  {function|generator} handler
  * @return {array|object}
  */
-export default function *map(iterable, handler) {
+const create = require("../create");
+const reduce = require("./reduce");
+
+export default function map(iterable, handler) {
+  const asyncHandler = create(handler, this);
+
   if (Symbol.iterator in iterable) {
-    for (let i = 0; i < iterable.length; i++) {
-      iterable[i] = yield handler(iterable[i], i, iterable);
-    }
-    yield iterable;
+    return reduce(iterable, (memo, value, index) => asyncHandler(value, index, iterable)
+      .then(result => memo.concat([ result ])), []);
   } else if (typeof iterable === "object") {
-    const mapped = {};
+    const keys = [];
+    const values = [];
 
     for (const prop in iterable) {
       if (Reflect.apply(Object.prototype.hasOwnProperty, iterable, [ prop ])) {
-        mapped[prop] = yield handler(iterable[prop], prop, iterable);
+        keys.push(prop);
+        values.push(iterable[prop]);
       }
     }
-    yield mapped;
-  } else {
-    throw new Error("Operator map() requires iterable or object");
+
+    return new Promise((resolve, reject) => {
+      map(values, handler)
+        .then(nextValues => {
+          const result = [];
+
+          for (let i = 0; i < nextValues.length; i++) {
+            result[keys[i]] = nextValues[i];
+          }
+
+          resolve(result);
+        })
+        .catch(reject);
+    });
   }
+  throw new Error("Operator map() requires iterable or object");
 }

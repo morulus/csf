@@ -1,5 +1,5 @@
 import run from "./run";
-import resolveArgs from "resolve-args";
+import resolveArgs from "./resolve-args";
 
 /* Wrap any function to runner */
 export default function create (task, initialContext, ownArgs) {
