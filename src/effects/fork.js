@@ -2,6 +2,8 @@ import resolveContext from "../resolve-context";
 import apply from "../apply";
 import payload from "./payload";
 
+const nextTick = setImmediate || setTimeout;
+
 /* Fork child flow */
 export default function fork(task, context, args) {
   return function forkChildFlow() {
@@ -9,8 +11,12 @@ export default function fork(task, context, args) {
 
     Object.assign(childContext, resolveContext(context));
 
-    const flow = apply(task, childContext, args);
-
-    return payload(flow);
+    return payload(new Promise((resolve, reject) => {
+      nextTick(() => {
+        apply(task, childContext, args)
+          .then(resolve)
+          .catch(reject);
+      });
+    }));
   };
 }
