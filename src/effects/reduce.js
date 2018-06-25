@@ -40,6 +40,8 @@ export default function map(iterable, handler) {
 
       const generator = iterable.slice(key)[Symbol.iterator]();
 
+      let index = -1;
+
       const reducer = function reducer(nextMemo) {
         const next = generator.next();
 
@@ -50,7 +52,7 @@ export default function map(iterable, handler) {
         return apply(handler, this, [
           nextMemo,
           next.value,
-          key,
+          ++index,
           iterable
         ])
           .then(reducer)

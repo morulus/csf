@@ -15,4 +15,19 @@ describe('Reduce', () => {
         expect(result).toBe(108)
       })
   });
+
+  it ('indexes', () => {
+    function getIndexes(memo, value, index) {
+      return memo.concat([index])
+    }
+
+    const a = ['A', 'B', 'C']
+
+    return new SequenceX(function () {
+      return fx.reduce(a, getIndexes, []);
+    })
+      .then(result => {
+        expect(result).toMatchObject([0, 1, 2])
+      })
+  });
 });

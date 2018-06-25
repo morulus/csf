@@ -30,4 +30,42 @@ describe('Map', () => {
         expect(result).toMatchObject([2, 3, 4])
       })
   });
+
+  it ('keys of arrays', () => {
+    function* selectKey(value, key) {
+      yield key
+    }
+
+    const a = ['a', 'b', 'c']
+
+    return new SequenceX(function () {
+      return fx.map(a, selectKey);
+    })
+      .then(result => {
+        expect(result).toMatchObject([0, 1, 2])
+      })
+  });
+
+  it ('keys of objects', () => {
+    function* selectKey(value, key) {
+      yield key
+    }
+
+    const a = {
+      a: 1,
+      b: 2,
+      c: 3
+    }
+
+    return new SequenceX(function () {
+      return fx.map(a, selectKey);
+    })
+      .then(result => {
+        expect(result).toMatchObject({
+          a: 'a',
+          b: 'b',
+          c: 'c'
+        })
+      })
+  });
 });

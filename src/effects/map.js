@@ -36,7 +36,10 @@ export default function map(iterable, handler) {
     }
 
     return new Promise((resolve, reject) => {
-      map(values, handler)
+      function handlerForObjects(item, index, items) {
+        return handler(item, keys[index], items);
+      }
+      map(values, handlerForObjects)
         .then(nextValues => {
           const result = [];
 
