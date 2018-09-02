@@ -69,3 +69,19 @@ describe('Map', () => {
       })
   });
 });
+
+describe('Map and context', function() {
+  it('Context must be accessable', () => {
+    const context = {};
+
+    const a = [1];
+
+    return SequenceX.apply(function () {
+      return fx.map(a, function *() {
+        const localContext = yield fx.getContext();
+        expect(localContext).toBe(context);
+      });
+    }, context)
+  });
+
+});

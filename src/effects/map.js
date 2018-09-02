@@ -19,38 +19,44 @@ const create = require("../create");
 const reduce = require("./reduce");
 
 export default function map(iterable, handler) {
-  const asyncHandler = create(handler, this);
+  return function() {
+    const context = this; // eslint-disable-line
+    const asyncHandler = create(handler, this);
 
-  if (Symbol.iterator in iterable) {
-    return reduce(iterable, (memo, value, index) => asyncHandler(value, index, iterable)
-      .then(result => memo.concat([ result ])), []);
-  } else if (typeof iterable === "object") {
-    const keys = [];
-    const values = [];
+    if (Symbol.iterator in iterable) {
+      return reduce(iterable, (memo, value, index) => asyncHandler(value, index, iterable)
+        .then(result => memo.concat([ result ])), []);
+    } else if (typeof iterable === "object") {
+      const keys = [];
+      const values = [];
 
-    for (const prop in iterable) {
-      if (Reflect.apply(Object.prototype.hasOwnProperty, iterable, [ prop ])) {
-        keys.push(prop);
-        values.push(iterable[prop]);
+      for (const prop in iterable) {
+        if (Reflect.apply(Object.prototype.hasOwnProperty, iterable, [ prop ])) {
+          keys.push(prop);
+          values.push(iterable[prop]);
+        }
       }
+
+      return new Promise((resolve, reject) => {
+        function handlerForObjects(item, index, items) {
+          return handler(item, keys[index], items);
+        }
+        Reflect.apply(map(
+          values,
+          handlerForObjects
+        ), context, [])
+          .then(nextValues => {
+            const result = [];
+
+            for (let i = 0; i < nextValues.length; i++) {
+              result[keys[i]] = nextValues[i];
+            }
+
+            resolve(result);
+          })
+          .catch(reject);
+      });
     }
-
-    return new Promise((resolve, reject) => {
-      function handlerForObjects(item, index, items) {
-        return handler(item, keys[index], items);
-      }
-      map(values, handlerForObjects)
-        .then(nextValues => {
-          const result = [];
-
-          for (let i = 0; i < nextValues.length; i++) {
-            result[keys[i]] = nextValues[i];
-          }
-
-          resolve(result);
-        })
-        .catch(reject);
-    });
-  }
-  throw new Error("Operator map() requires iterable or object");
+    throw new Error("Operator map() requires iterable or object");
+  };
 }
