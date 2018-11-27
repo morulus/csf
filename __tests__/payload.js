@@ -1,10 +1,10 @@
 import isPromise from 'is-promise'
-import SequenceX from "../src";
+import csf from "../src";
 
 describe('Payload', () => {
   it ('fx.payload inside the flow', () => {
     const subFlow = jest.fn(() => {
-      return SequenceX.fx.payload(function keep() {
+      return csf.fx.payload(function keep() {
         return 1415;
       });
     })
@@ -16,7 +16,7 @@ describe('Payload', () => {
       return result;
     });
 
-    const promise = SequenceX.run(flow, [1, 2, 3]);
+    const promise = csf.run(flow, [1, 2, 3]);
 
     expect(flow).toHaveBeenCalled();
     expect(subFlow).toHaveBeenCalled();
@@ -26,7 +26,7 @@ describe('Payload', () => {
 
   it('effect.payload for returnable values', () => {
     function subFlow() {
-      return SequenceX.fx.payload(Promise.resolve(15))
+      return csf.fx.payload(Promise.resolve(15))
     }
 
     function* flow() {
@@ -36,18 +36,18 @@ describe('Payload', () => {
       expect(b).toBe(15)
     }
 
-    return SequenceX.run(flow);
+    return csf.run(flow);
   });
 
   it('effect.payload for returnable values twice', () => {
     function subFlow() {
-      return SequenceX.fx.payload(Promise.resolve(15))
+      return csf.fx.payload(Promise.resolve(15))
     }
 
     function* flow() {
       const a = yield subFlow;
       expect(isPromise(a)).toBe(true)
-      return SequenceX.fx.payload(a);
+      return csf.fx.payload(a);
     }
 
     function* root() {
@@ -55,13 +55,13 @@ describe('Payload', () => {
       expect(isPromise(payload)).toBe(true)
     }
 
-    return SequenceX.run(root)
+    return csf.run(root)
   });
 
   it('proxy payloaded result', () => {
     function* c() {
       yield Promise.resolve(15)
-      return SequenceX.fx.payload(Promise.resolve(1415))
+      return csf.fx.payload(Promise.resolve(1415))
     }
 
     function b() {
@@ -73,6 +73,6 @@ describe('Payload', () => {
       expect(isPromise(result)).toBe(true)
     }
 
-    return SequenceX.run(a)
+    return csf.run(a)
   });
 });

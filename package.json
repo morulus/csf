@@ -1,7 +1,7 @@
 {
-  "name": "sequencex",
-  "version": "0.1.5-beta.4",
-  "description": "Communicating sequential asynchronous operations manager",
+  "name": "csf",
+  "version": "0.0.1",
+  "description": "Generator based flow control with context providing",
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/morulus/sequencex.git"
+    "url": "git+https://github.com/morulus/csf.git"
   },
   "keywords": [
     "sequence",
@@ -25,9 +25,9 @@
   "author": "Vladimir Kalmykov <vladimirmorulus@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/morulus/sequencex/issues"
+    "url": "https://github.com/morulus/csf/issues"
   },
-  "homepage": "https://github.com/morulus/sequencex#readme",
+  "homepage": "https://github.com/morulus/csf#readme",
   "dependencies": {
     "is-array": "^1.0.1",
     "is-error": "^2.2.1",

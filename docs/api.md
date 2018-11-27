@@ -1,4 +1,4 @@
-SequenceX Api Reference
+csf Api Reference
 ==
 
 General
@@ -24,7 +24,7 @@ Fx
 --
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 ```
 
 ### fx.spawn
@@ -40,7 +40,7 @@ function fork(task, context, args): any
 ##### es6
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 
 const {
   spawn
@@ -50,7 +50,7 @@ const {
 ##### node
 
 ```js
-const { fx } = require('sequencex');
+const { fx } = require('csf');
 
 const {
   spawn
@@ -60,7 +60,7 @@ const {
 ##### browser
 
 ```js
-SequenceX.fx.spawn
+csf.fx.spawn
 ```
 
 #### Arguments
@@ -83,7 +83,7 @@ function fork(task, context, args): promise
 ##### es6
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 
 const {
   fork
@@ -93,7 +93,7 @@ const {
 ##### node
 
 ```js
-const { fx } = require('sequencex');
+const { fx } = require('csf');
 
 const {
   fork
@@ -103,7 +103,7 @@ const {
 ##### browser
 
 ```js
-SequenceX.fx.fork
+csf.fx.fork
 ```
 
 #### Arguments
@@ -125,7 +125,7 @@ function getContext(): context
 ##### es6
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 
 const {
   getContext
@@ -135,7 +135,7 @@ const {
 ##### node
 
 ```js
-const { fx } = require('sequencex');
+const { fx } = require('csf');
 
 const {
   getContext
@@ -145,7 +145,7 @@ const {
 ##### browser
 
 ```js
-SequenceX.fx.getContext
+csf.fx.getContext
 ```
 
 #### Arguments
@@ -165,7 +165,7 @@ function payload(value): (function|generator|promise)
 ##### es6
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 
 const {
   payload
@@ -175,7 +175,7 @@ const {
 ##### node
 
 ```js
-const { fx } = require('sequencex');
+const { fx } = require('csf');
 
 const {
   payload
@@ -185,7 +185,7 @@ const {
 ##### browser
 
 ```js
-SequenceX.fx.payload
+csf.fx.payload
 ```
 
 #### Arguments
@@ -205,7 +205,7 @@ function cancel(sequence): undefined
 ##### es6
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 
 const {
   cancel
@@ -215,7 +215,7 @@ const {
 ##### node
 
 ```js
-const { fx } = require('sequencex');
+const { fx } = require('csf');
 
 const {
   cancel
@@ -225,7 +225,7 @@ const {
 ##### browser
 
 ```js
-SequenceX.fx.cancel
+csf.fx.cancel
 ```
 
 #### Arguments
@@ -247,7 +247,7 @@ function createChildContext(properties): object
 ##### es6
 
 ```js
-import { fx } from 'sequencex'
+import { fx } from 'csf'
 
 const {
   createChildContext
@@ -257,7 +257,7 @@ const {
 ##### node
 
 ```js
-const { fx } = require('sequencex');
+const { fx } = require('csf');
 
 const {
   createChildContext
@@ -267,7 +267,7 @@ const {
 ##### browser
 
 ```js
-SequenceX.fx.createChildContext
+csf.fx.createChildContext
 ```
 
 #### Arguments

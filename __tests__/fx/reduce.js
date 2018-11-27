@@ -1,4 +1,4 @@
-import SequenceX, { fx } from "../../src";
+import csf, { fx } from "../../src";
 
 describe('Reduce', () => {
   it ('with promise', () => {
@@ -8,7 +8,7 @@ describe('Reduce', () => {
 
     const a = [4, 8, 15, 16, 23, 42]
 
-    return new SequenceX(function () {
+    return new csf(function () {
       return fx.reduce(a, increaser);
     })
       .then(result => {
@@ -23,7 +23,7 @@ describe('Reduce', () => {
 
     const a = ['A', 'B', 'C']
 
-    return new SequenceX(function () {
+    return new csf(function () {
       return fx.reduce(a, getIndexes, []);
     })
       .then(result => {

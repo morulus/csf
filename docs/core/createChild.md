@@ -1,4 +1,4 @@
-### `Sx.createChild(task, [context], [args])`
+### `createChild(task, [context], [args])`
 
 Create sequence with dynamic child context and arguments.
 
@@ -16,11 +16,9 @@ Create sequence with dynamic child context and arguments.
 
 ```js
 // es6+
-import { createChild } from 'sequencex'
+import { createChild } from 'csf'
 // node
-const { createChild } = require('sequencex')
-// browser (WIP)
-window.SequenceX.createChild
+const { createChild } = require('csf')
 ```
 
 #### Example

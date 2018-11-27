@@ -1,4 +1,4 @@
-import SequenceX, { fx } from "../../src";
+import csf, { fx } from "../../src";
 
 describe('Fork', () => {
   it ('simple', () => {
@@ -8,7 +8,7 @@ describe('Fork', () => {
       })
     }
 
-    return new SequenceX(function *() {
+    return new csf(function *() {
       const forked = yield fx.fork(someAsyncTask);
       expect(typeof forked.then).toBe('function');
       return forked;

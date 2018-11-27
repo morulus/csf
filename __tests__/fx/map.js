@@ -1,4 +1,4 @@
-import SequenceX, { fx } from "../../src";
+import csf, { fx } from "../../src";
 
 describe('Map', () => {
   it ('with promise', () => {
@@ -8,7 +8,7 @@ describe('Map', () => {
 
     const a = [1, 2, 3]
 
-    return new SequenceX(function () {
+    return new csf(function () {
       return fx.map(a, increaser);
     })
       .then(result => {
@@ -23,7 +23,7 @@ describe('Map', () => {
 
     const a = [1, 2, 3]
 
-    return new SequenceX(function () {
+    return new csf(function () {
       return fx.map(a, increaser);
     })
       .then(result => {
@@ -38,7 +38,7 @@ describe('Map', () => {
 
     const a = ['a', 'b', 'c']
 
-    return new SequenceX(function () {
+    return new csf(function () {
       return fx.map(a, selectKey);
     })
       .then(result => {
@@ -57,7 +57,7 @@ describe('Map', () => {
       c: 3
     }
 
-    return new SequenceX(function () {
+    return new csf(function () {
       return fx.map(a, selectKey);
     })
       .then(result => {
@@ -76,7 +76,7 @@ describe('Map and context', function() {
 
     const a = [1];
 
-    return SequenceX.apply(function () {
+    return csf.apply(function () {
       return fx.map(a, function *() {
         const localContext = yield fx.getContext();
         expect(localContext).toBe(context);

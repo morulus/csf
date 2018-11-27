@@ -1,4 +1,4 @@
-### `Sx.createChannel()`
+### `createChannel()`
 
 Create new channel
 
@@ -9,11 +9,9 @@ Create new channel
 
 ```js
 // es6+
-import { createChannel } from 'sequencex'
+import { createChannel } from 'csf'
 // node
-const { createChannel } = require('sequencex')
-// browser (WIP)
-window.SequenceX.createChannel
+const { createChannel } = require('csf')
 ```
 
 #### Example

@@ -12,16 +12,14 @@ Run sequence.
 
 ```js
 // es6+
-import Sequence from 'sequencex'
+import csf from 'csf'
 // node
-const Sequence = require('sequencex')
-// browser (WIP)
-window.SequenceX
+const csf = require('csf')
 ```
 
 #### Example
 ```js
-new Sequence(function () {
+csf(function () {
   // ...sequential operations here
 })
   .then(result => {

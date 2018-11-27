@@ -1,4 +1,4 @@
-### `Sx.apply(task, [context], [args])`
+### `apply(task, [context], [args])`
 
 Run sequence with specific context and arguments.
 
@@ -14,11 +14,9 @@ Run sequence with specific context and arguments.
 
 ```js
 // es6+
-import { apply } from 'sequencex'
+import { apply } from 'csf'
 // node
-const { apply } = require('sequencex')
-// browser (WIP)
-window.SequenceX.apply
+const { apply } = require('csf')
 ```
 
 #### Example

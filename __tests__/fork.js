@@ -1,4 +1,4 @@
-import SequenceX from "../src";
+import csf from "../src";
 
 describe('Payload', () => {
   it ('effects.payload inside the flow', () => {
@@ -7,14 +7,14 @@ describe('Payload', () => {
     })
 
     const flow = jest.fn(function* () {
-      const result = yield SequenceX.fx.fork(subFlow);
+      const result = yield csf.fx.fork(subFlow);
       expect(typeof result).not.toBe(1415);
       expect(typeof result).toBe('object');
       expect(typeof result.then).toBe('function');
       return result;
     });
 
-    const promise = SequenceX.run(flow, [1, 2, 3]);
+    const promise = csf.run(flow, [1, 2, 3]);
 
     return promise.then(result => expect(result).toBe(1415))
   });

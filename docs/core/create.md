@@ -1,4 +1,4 @@
-### `Sx.create(task, [context], [args])`
+### `create(task, [context], [args])`
 
 Create sequence with specific context and arguments.
 
@@ -14,11 +14,9 @@ Create sequence with specific context and arguments.
 
 ```js
 // es6+
-import { create } from 'sequencex'
+import { create } from 'csf'
 // node
-const { create } = require('sequencex')
-// browser (WIP)
-window.SequenceX.create
+const { create } = require('csf')
 ```
 
 #### Example
