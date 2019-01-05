@@ -1,6 +1,6 @@
 {
   "name": "csf",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0-alpha.1",
   "description": "Generator based flow control with context providing",
   "main": "lib/index.js",
   "files": ["fx", "lib"],
