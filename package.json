@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha",
   "description": "Generator based flow control with context providing",
   "main": "lib/index.js",
-  "files": ["./control"],
+  "files": ["fx", "lib"],
   "scripts": {
     "test": "jest",
     "build": "npm run clean && babel src -d lib && babel src/effects -d fx",
