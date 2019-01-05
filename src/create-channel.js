@@ -1,5 +1,6 @@
 import {
-  CANCEL
+  CANCEL,
+  CHANNEL
 } from "./constants";
 
 export const DONE = Symbol("DONE");
@@ -13,8 +14,8 @@ export default function channel() {
 
   const channelEmitter = function channelEmitter() {
     if (cancelled) {
-      // Return unresolvable promise
-      return new Promise(Function.prototype);
+      // Return undefined intead of promise
+      return undefined;
     }
 
     if (sequence.length) {
@@ -30,6 +31,8 @@ export default function channel() {
     });
   };
 
+  channelEmitter[CHANNEL] = true;
+
   /*
    * Immediately permanently disable channel
    */
@@ -43,38 +46,60 @@ export default function channel() {
    */
   // channelEmitter[PAYLOAD] = true;
 
-  channelEmitter.push = next => {
+  /*
+   * Complete channel, disable push, resolve active promise with undefined
+   * or specified final value
+   */
+  channelEmitter.done = function (finalValue) {
+    done = true;
+    if (anticipant) {
+      anticipant(final);
+    } else {
+      final = finalValue;
+    }
+  };
+
+  channelEmitter.push = (next, last) => {
     if (done) {
       return;
     }
 
     if (cancelled) {
-      throw new Error("Pushing to cancelled channel");
+      throw new Error("Pushing to cancelled channel is unreachable");
     }
 
-    if (anticipant && !cancelled) {
-      anticipant(next);
-      anticipant = null;
+    if (last) {
+      // Force done channel
+      channelEmitter.done(next);
     } else {
-      sequence.push(next);
-    }
+      if (anticipant) {
+        anticipant(next);
+        anticipant = null;
+      } else {
+        sequence.push(next);
+      }
 
-    if (sequence.length > 1000) {
-      throw new Error("Dangerously count of observable result");
+      if (sequence.length > 1000) {
+        throw new Error("Dangerously count of observable result");
+      }
     }
   };
 
-  /*
-   * Complete channel, disiable push, resolve active promise with undefined
-   * or specified final value
-   */
-  channelEmitter.done = final => {
-    done = true;
-    if (anticipant) {
-      anticipant(final);
-    } else {
-      final = false;
+  channelEmitter.next = function(...args) {
+    const nextPromise = channelEmitter(...args);
+
+    if (nextPromise) {
+      return nextPromise
+        .then(value => ({
+          value,
+          done: false
+        }));
     }
+
+    return Promise.resolve({
+      done: true,
+      value: undefined
+    });
   };
 
   /* Return count of cached values */

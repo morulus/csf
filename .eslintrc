@@ -57,8 +57,6 @@
         max-depth: 2,
         max-lines: 2,
         max-nested-callbacks: 2,
-        max-params: 2,
-        max-statements: 0,
         max-statements-per-line: 2,
         multiline-comment-style: [
             2,
@@ -246,6 +244,8 @@
         valid-jsdoc: 0, // Non-strict jsdoc,
         prefer-destructuring: 0, // How about redefine?
         prefer-rest-params: 0, // I need to use arguments.length
-        no-undefined: 0
+        no-undefined: 0,
+        max-params: 0,
+        max-statements: 0
     }
 }

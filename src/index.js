@@ -4,24 +4,15 @@ import apply from "./apply";
 import create from "./create";
 import createChild from "./create-child";
 import createChannel from "./create-channel";
+import isChannel from "./is-channel";
+import cancel from "./cancel";
 
 /* Effects */
-import payload from "./effects/payload";
-import context from "./effects/context";
-import getContext from "./effects/get-context";
-import spawn from "./effects/spawn";
-import evolve from "./effects/evolve";
-import fork from "./effects/fork";
-import defaultContext from "./effects/default-context";
-import assignContext from "./effects/assign-context";
-import createChildContext from "./effects/create-child-context";
-import cancel from "./effects/cancel";
-import reduce from "./effects/reduce";
-import map from "./effects/map";
+import fx from "./effects";
 
 function Csf(task) {
-  const internalPromise = new Promise(function (resolve) {
-    resolve(apply(task, this));
+  const internalPromise = new Promise(resolve => {
+    resolve(apply(task, {}));
   });
 
   Reflect.defineProperty(this, "promise", {
@@ -54,42 +45,23 @@ Csf.prototype.catch = function(handler) {
  * };
  */
 
-const fx = {
-  payload,
-
-  context,
-
-  getContext,
-
-  spawn,
-
-  evolve,
-
-  fork,
-
-  defaultContext,
-
-  assignContext,
-
-  createChildContext,
-
-  cancel,
-
-  map,
-
-  reduce
-};
-
 Csf.fx = fx;
+/* Effects is deprecated */
 Csf.effects = fx;
 
 /* Extend main module with api */
 Object.assign(Csf, {
+  /* Run is deprecated, use call intead*/
   run,
+  call: run,
   apply,
+  /* Create is deprecated, use wrap instad */
   create,
+  wrap: create,
   createChild,
   createChannel,
+  isChannel,
+  cancel,
   fx
 });
 

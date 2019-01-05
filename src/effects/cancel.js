@@ -1,10 +1,14 @@
+/*
+ * Cancel in the fx is deprecated and will be removed soon.
+ * Use Csf.cancel instead
+ */
 import {
   CANCEL
 } from "../constants";
 
 /* Cancel current task (it can a promise, or generator flow)*/
 export default function cancel(task, final) {
-  return function() {
+  return () => {
     if (typeof task[CANCEL] === "function") {
       task[CANCEL](final);
     } else {

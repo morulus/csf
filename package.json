@@ -1,11 +1,13 @@
 {
   "name": "csf",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha",
   "description": "Generator based flow control with context providing",
   "main": "lib/index.js",
+  "files": ["./control"],
   "scripts": {
     "test": "jest",
-    "build": "babel src -d lib",
+    "build": "npm run clean && babel src -d lib && babel src/effects -d fx",
+    "clean": "rm -rf ./lib && rm -rf ./fx",
     "prepublishOnly": "npm run lint && npm run build && npm run test",
     "lint": "eslint ./src"
   },

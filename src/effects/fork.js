@@ -1,12 +1,17 @@
 import resolveContext from "../resolve-context";
 import apply from "../apply";
 import payload from "./payload";
+import cancel from "../cancel";
+import {
+  CANCEL
+} from "../constants";
 
 const nextTick = setImmediate || setTimeout;
 
 /* Fork child flow */
 export default function fork(task, contextProperties, args) {
   return function forkChildFlow() {
+    let subFlow;
     const childContext = Object.create(this);
 
     Object.assign(childContext, Reflect.apply(
@@ -20,12 +25,24 @@ export default function fork(task, contextProperties, args) {
       [ contextProperties ]
     ));
 
-    return payload(new Promise((resolve, reject) => {
+    const forkPromise = new Promise((resolve, reject) => {
       nextTick(() => {
-        apply(task, childContext, args)
+        subFlow = apply(task, childContext, args);
+
+        subFlow
           .then(resolve)
           .catch(reject);
       });
-    }));
+    });
+
+    forkPromise[CANCEL] = function cancelFork() {
+      if (subFlow) {
+        cancel(subFlow);
+      } else {
+        throw new Error("Unnitialized flow can not be cancelled");
+      }
+    };
+
+    return payload(forkPromise);
   };
 }
