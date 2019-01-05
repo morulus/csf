@@ -28,16 +28,17 @@ function each(iterable, handler) {
   var cancelled = false;
 
   function eachRuntime() {
+    var runtimeCancelled = false;
     var eachHelper = function eachHelper(gen, index, resolve, reject) {
       var genIsChannel = isChannel(gen);
       var next = gen.next();
 
       (genIsChannel ? next : Promise.resolve(next)).then(function (result) {
-        if (result.done || cancelled) {
+        if (result.done || cancelled || runtimeCancelled) {
           resolve();
         } else {
           apply(handler, this, [result.value, index, iterable]).then(function (response) {
-            if (response === false || cancelled) {
+            if (response === false || cancelled || runtimeCancelled) {
               resolve();
             } else {
               eachHelper(gen, index + 1, resolve, reject);
@@ -47,7 +48,7 @@ function each(iterable, handler) {
       }).catch(reject);
     };
 
-    return new Promise(function (resolve, reject) {
+    var promise = new Promise(function (resolve, reject) {
       if (Symbol.iterator in iterable) {
         var generator = iterable[Symbol.iterator]();
 
@@ -55,9 +56,16 @@ function each(iterable, handler) {
       } else if (isChannel(iterable)) {
         eachHelper(iterable, 0, resolve, reject);
       } else {
-        throw new Error("Operator reduce() expects an array or an iterable object");
+        throw new Error("Operator each() expects an array or an iterable object");
       }
     });
+
+    /* TODO: This functional should be tested */
+    promise[CANCEL] = function () {
+      runtimeCancelled = true;
+    };
+
+    return promise;
   }
 
   eachRuntime[CANCEL] = function () {
