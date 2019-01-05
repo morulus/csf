@@ -3,7 +3,10 @@
   "version": "0.1.0-alpha.1",
   "description": "Generator based flow control with context providing",
   "main": "lib/index.js",
-  "files": ["fx", "lib"],
+  "files": [
+    "fx",
+    "lib"
+  ],
   "scripts": {
     "test": "jest",
     "build": "npm run clean && babel src -d lib && babel src/effects -d fx",
@@ -48,7 +51,7 @@
     "cross-env": "^5.1.6",
     "eslint": "^4.19.1",
     "jest": "^18.0.0",
-    "jest-cli": "^18.0.0"
+    "jest-cli": "^18.1.0"
   },
   "jest": {
     "verbose": true
