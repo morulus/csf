@@ -351,26 +351,28 @@ new Csf(function *() {
 Cancellation
 --
 
-Most of fork processes in __csf__ can be cancelled. To cancel any parallel process you should use special method `Csf.cancel`.
+Most of fork processes in __csf__ can be cancelled. To cancel a flow you should use special method `Csf.cancel`.
 
 ```js
 const Csf = require('csf')
 
 new Csf(function *() {
   const a = [1, 2, 3, 4, 5]
-  const parallelFlow = yield Csf.fx.fork(Csf.fx.each(a, function *(val) {
+  const parallelFlow = yield
+  const eachA = Csf.fx.each(a, function *(val) {
     yield Csf.fx.pause(50);
     console.log(`Val: ${val}`)
-  }));
+  });
+  yield Csf.fx.fork(eachA);
   yield Csf.fx.pause(120)
-  Csf.cancel(parallelFlow);
+  Csf.cancel(eachA);
 })
 // Val: 1
 // Val: 2
 // Val: 3
 ```
 
-In this example we canceled process, created by async operator `each`.
+In this example we have canceled process, created by fx operator `each`.
 
 Author
 --

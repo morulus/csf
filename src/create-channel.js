@@ -5,7 +5,7 @@ import {
 
 export const DONE = Symbol("DONE");
 
-export default function channel() {
+export default function channel(maxLength = 1000000) {
   const sequence = [];
   let cancelled = false;
   let done = false;
@@ -79,8 +79,8 @@ export default function channel() {
         sequence.push(next);
       }
 
-      if (sequence.length > 1000) {
-        throw new Error("Dangerously count of observable result");
+      if (sequence.length > maxLength) {
+        sequence.splice(0, maxLength - sequence.length);
       }
     }
   };
